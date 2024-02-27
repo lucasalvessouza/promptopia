@@ -26,6 +26,10 @@ const Feed = () => {
     setSearchText(e.target.value)    
   }
 
+  const handleTagClick = (tag) => {
+    setSearchText(tag)
+  }
+
   useEffect(() => {
     const filtered = originalPosts.filter(post => 
       post.prompt.includes(searchText) || 
@@ -61,7 +65,7 @@ const Feed = () => {
 
       <PromptCardList
         data={posts}
-        handleTagClick={() => {}}
+        handleTagClick={handleTagClick}
       />
     </section>
   )
