@@ -37,7 +37,7 @@ const Feed = () => {
       post.creator.username.includes(searchText)
     )
     setPosts(filtered)
-  }, [searchText])
+  }, [searchText, originalPosts])
 
   useEffect(() => {
     const fetchPosts = async () => {

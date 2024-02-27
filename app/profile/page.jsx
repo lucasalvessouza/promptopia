@@ -8,8 +8,8 @@ import { useRouter, useSearchParams } from 'next/navigation'
 const MyProfile = () => {
   const { data: session } = useSession()
   const searchParams = useSearchParams()
-  const searchId = searchParams.get('id')
-  const searchName = searchParams.get('name')
+  let searchId = searchParams.get('id')
+  let searchName = searchParams.get('name')
   const router = useRouter()
   const [posts, setPosts] = useState([])
 
@@ -22,7 +22,7 @@ const MyProfile = () => {
     if(session?.user?.id) {
       fetchUserPosts()
     }
-  }, [session])
+  }, [session, searchId])
 
   const handleEdit = async (post) => {
     router.push(`/update-prompt?id=${post._id}`)
