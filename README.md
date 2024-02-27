@@ -3,6 +3,8 @@ This is a project to study Next.js apps, building a platform to store and view s
 
 This is a project from JavaScript Mastery.
 
+[It's live!](https://promptopia-nu-sandy.vercel.app/)
+
 ## Features
 - SignIn with Google authentication
 - Create a prompt with tags to be easier to identify the subject.

@@ -4,7 +4,7 @@ import { useState } from 'react'
 import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
-import { Image } from 'next/image'
+import Image from "next/image";
 
 function PromptCard({
   post,
