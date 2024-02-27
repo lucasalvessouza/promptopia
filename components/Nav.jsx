@@ -11,6 +11,7 @@ const Nav = () => {
   const isLoggedIn = true;
   
   const [providers, setProviders] = useState(null)
+  const [toggleDropdown, setToggleDropdown] = useState(false)
 
   useEffect(() => {
     const setProviders = async () => {
@@ -28,7 +29,6 @@ const Nav = () => {
         <p className='logo_text'>Promptopia</p>
       </Link>
 
-      {/* Mobile navigation */}
       <div className='sm:flex hidden'>
         {
           isLoggedIn ? (
@@ -40,7 +40,12 @@ const Nav = () => {
                 Sign Out
               </button>
               <Link href='/profile'>
-                <Image src="/assets/images/logo.svg" width={37} height={37} alt='profile'/>
+                <Image
+                  src="/assets/images/logo.svg"
+                  width={37}
+                  height={37}
+                  alt='profile'
+                />
               </Link>
             </div>
           ) : (
@@ -54,6 +59,60 @@ const Nav = () => {
             </>
           )
         }
+      </div>
+
+      {/* Mobile navigation */}
+      <div className='sm:hidden flex relative'>
+        {isLoggedIn ? (
+          <div className='flex'>
+            <Image
+              src="/assets/images/logo.svg"
+              width={37}
+              height={37}
+              alt='profile'
+              onClick={() => setToggleDropdown(previous => !previous)}
+            />
+
+            {toggleDropdown && (
+              <div className='dropdown'>
+                <Link
+                  href='/profile'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  My Profile
+                </Link>
+                <Link
+                  href='/create-prompt'
+                  className='dropdown_link'
+                  onClick={() => setToggleDropdown(false)}
+                >
+                  Create Prompt
+                </Link>
+
+                <button
+                  type='button'
+                  onClick={() => {
+                    setToggleDropdown(false);
+                    signOut();
+                  }}
+                  className='mt-5 w-full black_btn'
+                >
+                  Sign Out
+                </button>
+              </div>
+            )}
+          </div>
+        ) : (
+          <>
+            {providers && 
+              Object.values(providers).map(provider => (
+                <button onClick={() => signIn(provider.id)} type='button' key={provider.name} className='black_btn'>
+                  Sign In
+                </button>
+              ))}
+          </>
+        )}
       </div>
     </nav>
   )
