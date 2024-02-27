@@ -1,7 +1,6 @@
 "use client"
 import { useEffect, useState } from 'react'
 import Form from '@components/Form'
-import { useSession } from 'next-auth/react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
 const EditPrompt = () => {
