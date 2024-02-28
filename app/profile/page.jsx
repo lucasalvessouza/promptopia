@@ -12,12 +12,15 @@ const MyProfile = () => {
   let searchName = searchParams.get('name')
   const router = useRouter()
   const [posts, setPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   useEffect(() => {
     const fetchUserPosts = async () => {
+      setIsLoading(true)
       const response = await fetch(`/api/users/${searchId || session.user?.id}/posts`, { cache: 'no-store' })
       const data = await response.json()
       setPosts(data)
+      setIsLoading(false)
     }
     fetchUserPosts()
   }, [session, searchId])
@@ -50,6 +53,7 @@ const MyProfile = () => {
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       data={posts}
+      isLoading={isLoading}
     />
   )
 }

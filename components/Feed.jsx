@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react'
 import PromptCard from './PromptCard'
+import { Loader } from "./Loader"
 
 const PromptCardList = ({ data, handleTagClick }) => {
   return (
@@ -21,6 +22,7 @@ const Feed = () => {
   const [searchText, setSearchText] = useState('')
   const [posts, setPosts] = useState([])
   const [originalPosts, setOriginalPosts] = useState([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleSearchChange = (e) => {
     setSearchText(e.target.value)    
@@ -41,8 +43,10 @@ const Feed = () => {
 
   useEffect(() => {
     const fetchPosts = async () => {
+      setIsLoading(true)
       const response = await fetch('/api/prompt', { cache: 'no-store' })
       const data = await response.json()
+      setIsLoading(false)
       setPosts(data)
       setOriginalPosts(data)
     }
@@ -63,10 +67,15 @@ const Feed = () => {
         />
       </form>
 
-      <PromptCardList
-        data={posts}
-        handleTagClick={handleTagClick}
-      />
+      {isLoading ? 
+        <div className="mt-[50px]">
+          <Loader />
+        </div> :
+        <PromptCardList
+          data={posts}
+          handleTagClick={handleTagClick}
+        />
+      }
     </section>
   )
 }
