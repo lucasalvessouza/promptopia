@@ -15,7 +15,7 @@ const MyProfile = () => {
 
   useEffect(() => {
     const fetchUserPosts = async () => {
-      const response = await fetch(`/api/users/${searchId || session.user?.id}/posts`)
+      const response = await fetch(`/api/users/${searchId || session.user?.id}/posts`, { cache: 'no-store' })
       const data = await response.json()
       setPosts(data)
     }
@@ -33,7 +33,8 @@ const MyProfile = () => {
     }
     try {
       await fetch(`/api/prompt/${post._id}`, {
-        method: 'DELETE'
+        method: 'DELETE',
+        cache: 'no-store'
       })
       
       setPosts(previous => previous.filter(p => p._id !== post._id))
