@@ -19,9 +19,7 @@ const MyProfile = () => {
       const data = await response.json()
       setPosts(data)
     }
-    if(session?.user?.id) {
-      fetchUserPosts()
-    }
+    fetchUserPosts()
   }, [session, searchId])
 
   const handleEdit = async (post) => {
@@ -46,8 +44,8 @@ const MyProfile = () => {
 
   return (
     <Profile
-      name={session?.user?.id !== searchId ? searchName : "My"}
-      desc="Welcome to your personalized profile page"
+      name={searchId && session?.user?.id !== searchId ? searchName : "My"}
+      desc={searchId && session?.user?.id !== searchId ? `Welcome to ${searchName}'s personalized profile page. Explore ${searchName}'s exceptional prompts and be inspired by the power of their imagination` : 'Welcome to your personalized profile page'}
       handleEdit={handleEdit}
       handleDelete={handleDelete}
       data={posts}
